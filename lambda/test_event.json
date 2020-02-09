@@ -1,4 +1,6 @@
 {
-    "function": "get_lists",
-    "token": "517bafc9-2d7b-4ee9-9551-44fd942c3170"
+    "function": "login",
+    "token": "517bafc9-2d7b-4ee9-9551-44fd942c3170",
+    "username": "vkd225@nyu.edu",
+    "password": "todoable"
 }

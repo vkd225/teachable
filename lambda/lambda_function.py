@@ -82,10 +82,12 @@ def lambda_handler(event, context):
     function_name = event.get('function')
     try:
         response = dispatcher[function_name](event)
+        print (response)
+        print (type (response))
+        return response
+
     except KeyError:
         raise ValueError('invalid input')
-
-    return response
 
 
 # Entry point for testing
