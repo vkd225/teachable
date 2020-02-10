@@ -3,15 +3,20 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import { Redirect } from 'react-router-dom'
 
 import * as HttpStatus from 'http-status-codes';
 
 interface IProps {
+    updateToken: any;
 }
 
 interface IState {
     username: string;
     password: string;
+    token: string;
+    valid: boolean;
+    changeView: boolean;
 }
 
 class Login extends Component<IProps, IState> {  
@@ -20,9 +25,13 @@ class Login extends Component<IProps, IState> {
         this.componentDidMount = this.componentDidMount.bind(this);
         this.login = this.login.bind(this);
         this.getToken = this.getToken.bind(this);
+        this.sendData = this.sendData.bind(this);
         this.state = {
             username: '',
             password: '',
+            token: '',
+            valid: true,
+            changeView: false
         };
     }
 
@@ -34,14 +43,14 @@ class Login extends Component<IProps, IState> {
 
 
     async login() {
-        this.setState({
+        await this.setState({
             username: this.state.username, 
             password: this.state.password
         })
         console.log('user: ', this.state.username)
         console.log('pass: ', this.state.password)
         let url = 'https://xwyir2jma1.execute-api.us-east-1.amazonaws.com/prod/todos?function=login&username=' + 
-            this.state.username + '&passwor=' + this.state.password
+            this.state.username + '&password=' + this.state.password
 
         await this.getToken(url)
     }
@@ -49,25 +58,57 @@ class Login extends Component<IProps, IState> {
     async getToken (url: string) {
         try {
             let result = await fetch(url, {
-                method: 'GET',
+                method: 'GET'
             });
 
             // Bail if status code is not OK
             if ((result.status).toString() !== (HttpStatus.OK).toString()) return undefined;
 
-            console.log('result type: ', result.type)
             // Read response
             let response = await result.json();
-            console.log('res json: ', response)
-            return response;
+            
+            try {
+                if (response.response === 'invalid credentials') {
+                    await this.setState({
+                        valid: false, 
+                    })
+                } else {
+                    await this.setState({
+                        valid: true, 
+                        token: response.response.token
+                    })
+                    console.log('TOKEN: ', this.state.token)
+                }
+            } catch (error) {
+                    await this.setState({
+                        valid: false, 
+                    })
+            }
+            await this.sendData();
+            return 'send token'
 
         } catch (error) 
         {
-            return undefined;
+            await this.setState({
+                valid: false, 
+            })
+            return this.state.token;
+        }
+    }
+
+    async sendData() {
+        this.props.updateToken(this.state.token)
+        if (this.state.valid) {
+            this.setState({
+                changeView: true 
+            })
         }
     }
 
     render() {
+        if (this.state.changeView) {
+            return <Redirect to="/list" />
+        }
         return (
             <Container maxWidth="xs">
             <div style={{ marginTop: 50 }}>
@@ -108,7 +149,15 @@ class Login extends Component<IProps, IState> {
                         Sign In
                     </Button>
                 </form>
+                {
+                    (!this.state.valid) ?
+                    <h2 style={{ textAlign:"center" }}> INVALID CREDENTIALS </h2>
+                :
+                    null 
+                }
+            
             </div>
+
             </Container>
         );
     }

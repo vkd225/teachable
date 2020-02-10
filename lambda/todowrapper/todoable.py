@@ -21,7 +21,7 @@ class TODOABLE(object):
         if response.status_code == 200:
             return (response.json())
         else:
-            return ({'res ': 'invalid credentials'})
+            return ('invalid credentials')
 
 
     def get_lists(token):

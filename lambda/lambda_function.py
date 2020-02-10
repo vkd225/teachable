@@ -26,7 +26,7 @@ def post_list(event):
 def get_list_tasks(event):
     token = event.get('token', None)
     list_id = event.get('list_id', None)
-    response = TODOABLE.post_list(token, list_id)
+    response = TODOABLE.get_list_tasks(token, list_id)
     return (response)
 
 def update_list(event):
@@ -84,7 +84,7 @@ def lambda_handler(event, context):
         response = dispatcher[function_name](event)
         print (response)
         print (type (response))
-        return response
+        return {'response':response}
 
     except KeyError:
         raise ValueError('invalid input')
