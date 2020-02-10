@@ -64,10 +64,8 @@ class RenderList extends Component<IProps, IState> {
         // Read response
         let response = await result.json();
   
-        if (response.response === 'invalid token') {
-            await this.setState({
-                valid: false, 
-            })
+        if (response.response === 'invalid token' || response.response === 'invalid list id') {
+            console.log('tasks invalid', this.state.tasks)
         } else {
             await this.setState({
                 valid: true, 
@@ -84,6 +82,7 @@ class RenderList extends Component<IProps, IState> {
         }
         return (
             <Container>
+
                 <FormControl component="fieldset">
                     <RadioGroup>
                         {this.props.data.map((list: any, index: any) => {

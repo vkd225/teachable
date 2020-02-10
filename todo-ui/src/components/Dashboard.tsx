@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Login from './Login';
 import ListTask from './ListTask';
+import PostList from './PostList'
 
 interface IProps {
 }
@@ -40,6 +41,9 @@ class Dashboard extends Component<IProps, IState> {
                     </Route>
                     <Route path="/list">
                         <ListTask token={this.state.token}/>
+                    </Route>
+                    <Route path="/addlist">
+                        <PostList token={this.state.token}/>
                     </Route>
                 </Switch>
             </Router>

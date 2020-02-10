@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import RenderList from './RenderList';
 import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Button';
 
 import { Redirect } from 'react-router-dom'
 import * as HttpStatus from 'http-status-codes';
@@ -12,6 +13,7 @@ interface IProps {
 interface IState {
     valid: boolean;
     lists: any;
+    postList: boolean;
 }
 
 class ListTask extends Component<IProps, IState> {  
@@ -20,9 +22,11 @@ class ListTask extends Component<IProps, IState> {
         this.componentDidMount = this.componentDidMount.bind(this);
         this.componentWillMount = this.componentWillMount.bind(this);
         this.getlist = this.getlist.bind(this);
+        this.postlist = this.postlist.bind(this);
         this.state = {
             valid: true,
             lists: [],
+            postList: false
         };
     }
 
@@ -59,19 +63,36 @@ class ListTask extends Component<IProps, IState> {
             })
         } 
     }
+    
+    async postlist (){
+        await this.setState({
+            postList: true, 
+        })
+    }
 
     render() {
         if (!this.state.valid) {
             return <Redirect to="/" />
         }
+
+        if (this.state.postList) {
+            return <Redirect to="/addlist" />
+        }
+
         return (
             <Container>
-            <div style={{ marginTop: 50 }}>
-                <h2>List of items</h2>
-                <div style={{ margin : 30, marginTop: -10}}>
-                    <RenderList data = {this.state.lists} token = {this.props.token}/>
+                <div style= {{ marginTop: 50 }}>
+                    <Button variant="contained" color="primary" onClick={this.postlist}>
+                        Add a new List
+                    </Button>
                 </div>
-            </div>
+
+                <div style={{ marginTop: 20 }}>
+                    <h2>List of items</h2>
+                    <div style={{ margin : 30, marginTop: -10}}>
+                        <RenderList data = {this.state.lists} token = {this.props.token}/>
+                    </div>
+                </div>
 
             </Container>
         );
