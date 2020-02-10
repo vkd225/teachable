@@ -9,9 +9,9 @@ class TODOABLE(object):
         pass
 
     def login(username, password):
-        
+
         '''
-        Login into todoable. 
+        Login into todoable.
         usage: todoable.login(username, password)
         '''
 
@@ -25,14 +25,14 @@ class TODOABLE(object):
 
 
     def get_lists(token):
-        
+
         '''
-        Get Todoable lists. 
+        Get Todoable lists.
         usage: todoable.get_lists(token)
         '''
 
         headers = {
-                'Content-Type': 'application/json', 
+                'Content-Type': 'application/json',
                 'Accept': 'application/json',
                 'Authorization': 'Token token={}'.format(token)
                 }
@@ -46,14 +46,14 @@ class TODOABLE(object):
 
 
     def post_list(token, name):
-        
+
         '''
-        Post a Todoable list. 
+        Post a Todoable list.
         usage: todoable.post_lists(token, name)
         '''
 
         headers = {
-            'Content-Type': 'application/json', 
+            'Content-Type': 'application/json',
             'Accept': 'application/json',
             'Authorization': 'Token token={}'.format(token)
             }
@@ -75,14 +75,14 @@ class TODOABLE(object):
 
 
     def get_list_tasks(token, list_id):
-        
+
         '''
-        get a Todoable list items. 
+        get a Todoable list items.
         usage: todoable.get_list_items(token, list_id)
         '''
 
         headers = {
-            'Content-Type': 'application/json', 
+            'Content-Type': 'application/json',
             'Accept': 'application/json',
             'Authorization': 'Token token={}'.format(token)
             }
@@ -99,14 +99,14 @@ class TODOABLE(object):
 
 
     def update_list(token, list_id, name):
-        
+
         '''
-        Updates a Todoable list. 
+        Updates a Todoable list.
         usage: todoable.update_list(token, list_id, new_name)
         '''
 
         headers = {
-            'Content-Type': 'application/json', 
+            'Content-Type': 'application/json',
             'Accept': 'application/json',
             'Authorization': 'Token token={}'.format(token)
             }
@@ -128,19 +128,19 @@ class TODOABLE(object):
 
 
     def delete_list(token, list_id):
-        
+
         '''
-        Deletes a Todoable list. 
+        Deletes a Todoable list.
         usage: todoable.delete_list(token, list_id)
         '''
 
         headers = {
-            'Content-Type': 'application/json', 
+            'Content-Type': 'application/json',
             'Accept': 'application/json',
             'Authorization': 'Token token={}'.format(token)
             }
         url = base_url + '/lists/' + list_id
-        
+
         response = requests.delete(url=url, headers=headers)
 
         if response.status_code == 204:
@@ -152,14 +152,14 @@ class TODOABLE(object):
 
 
     def post_task_in_list(token, list_id, name):
-        
+
         '''
-        Post an item inside a Todoable list. 
+        Post an item inside a Todoable list.
         usage: todoable.post_task_in_list(token, list_id, task_name)
         '''
 
         headers = {
-            'Content-Type': 'application/json', 
+            'Content-Type': 'application/json',
             'Accept': 'application/json',
             'Authorization': 'Token token={}'.format(token)
             }
@@ -181,14 +181,14 @@ class TODOABLE(object):
 
 
     def complete_task_in_list(token, list_id, item_id):
-        
+
         '''
-        Mark an item inside a Todoable list as done. 
+        Mark an item inside a Todoable list as done.
         usage: todoable.post_lists(token, list_id, task_id)
         '''
 
         headers = {
-            'Content-Type': 'application/json', 
+            'Content-Type': 'application/json',
             'Accept': 'application/json',
             'Authorization': 'Token token={}'.format(token)
             }
@@ -204,14 +204,14 @@ class TODOABLE(object):
             return ('Already marked as done')
 
     def delete_task_in_list(token, list_id, item_id):
-        
+
         '''
-        Delete an item inside a Todoable list. 
+        Delete an item inside a Todoable list.
         usage: todoable.post_lists(token, list_id, task_id)
         '''
 
         headers = {
-            'Content-Type': 'application/json', 
+            'Content-Type': 'application/json',
             'Accept': 'application/json',
             'Authorization': 'Token token={}'.format(token)
             }
@@ -227,9 +227,3 @@ class TODOABLE(object):
             return ('invalid token')
         else:
             return ('Already marked as done')
-
-
-
-
-
-
