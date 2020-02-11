@@ -47,3 +47,8 @@ You can also add more test cases if you want.
 ```
 py.test
 ```
+
+### Things for future.
+1. Ofcourse, Better UI. :P
+2. Handling Token better in the front end.
+3. Better state management between components.
