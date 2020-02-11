@@ -1,7 +1,9 @@
 {
-    "function": "get_list_tasks",
-    "token": "79a64776-9156-4c9f-ae80-46ced25f6262",
-    "username": "vkd225@nyu.edu",
-    "password": "todoable",
-    "list_id": "4b9ef7e2-9304-4e78-b72a-a57a6ce3c118"
+    "function": "login, get_lists, post_list, etc.",
+    "token": "token",
+    "username": "your_username",
+    "password": "pwd",
+    "list_id": "your_list_id",
+    "name": "Name of the task",
+    "item_id": "your_item_id"
 }
