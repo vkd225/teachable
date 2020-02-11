@@ -95,8 +95,13 @@ class RenderList extends Component<IProps, IState> {
 
                         </RadioGroup>
                     </FormControl>
-                    <RenderTask data={this.state.tasks}/>
+                    {(this.state.tasks.length !== 0) ?
+                        <RenderTask data={this.state.tasks}/>
+                    :
 
+                    <h3>No tasks present.</h3>
+                    
+                    }
             </Container>
         );
     }

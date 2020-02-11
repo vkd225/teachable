@@ -96,13 +96,13 @@ class RenderTaskComplete extends Component<IProps, IState> {
         // Read response
         let response = await result.json();
 
-        if (response.response === 'invalid token') {
+        if (response.response === 'marked finished') {
             await this.setState({
-                editTask: 'invalid'
+                editTask: 'taskCompleted'
             })
         } else {
             await this.setState({
-                editTask: 'taskCompleted'
+                editTask: 'invalid'
             })
         }
         await this.goBackToList();
@@ -158,9 +158,10 @@ class RenderTaskComplete extends Component<IProps, IState> {
                         {this.props.data.map((task: any, index: any) => {
                                 return (
                                     <div style={{paddingTop: 10}}>
-                                        <FormControlLabel value={task.id} control={<Radio />} label={task.name} />
+                                        <FormControlLabel value={task.id} control={<Radio />} onClick={this.handleTaskChange} label={task.name} />
                                         <p style={{margin: 5, marginLeft: 40}}>Finished at: {task.finished_at}</p>
                                     </div>
+
                                 );
                         })}
                     </RadioGroup>
@@ -188,7 +189,7 @@ class RenderTaskComplete extends Component<IProps, IState> {
 
                         <Button variant="contained" color="secondary"
                             style={{ margin: 20, marginTop: 10 }}
-                            onClick={this.postTask}>
+                            onClick={this.deleteTask}>
                             Delete Task
                         </Button>
 
