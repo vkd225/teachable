@@ -1,7 +1,7 @@
 # teachable
 A python wrapper which handles CRUD commands for your todo list.
 
-# Fucntions Available:
+# Functions Available:
 ```
 login
 get_lists
